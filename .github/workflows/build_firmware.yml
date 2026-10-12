@@ -19,18 +19,15 @@ jobs:
       - name: Build Firmware
         shell: bash
         run: |
-          # 1. 激活环境
+          # 1. 激活 IDF 环境
           . /opt/esp/idf/export.sh
 
-          # 2. 升级组件管理器以支持新版 if 语法
-          python -m pip install --upgrade idf-component-manager
+          # 2. 安装向下兼容 interface_version 2 且支持新 if 语法的版本
+          python -m pip install "idf-component-manager~=2.1.0"
 
-          # 3. 导出项目配置变量并编译
-          export CONFIG="breadboard"
+          # 3. 进入工程目录并带参编译
           cd application/edge_agent
-          
-          # 直接编译（无需 set-target 覆盖官方配置）
-          idf.py build
+          idf.py -DIDF_TARGET=esp32s3 -DCONFIG=breadboard build
 
       - name: Merge Binaries
         shell: bash
