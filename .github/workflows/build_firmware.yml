@@ -27,15 +27,15 @@ jobs:
 
           cd application/edge_agent
 
-          # 3. 补齐预构建占位与 Flash 配置
+          # 3. 提供合法的 YAML 格式内容，避免解析为空失败
           mkdir -p components/gen_bmgr_codes
-          touch components/gen_bmgr_codes/gen_board_metadata.yaml
+          echo "boards: {}" > components/gen_bmgr_codes/gen_board_metadata.yaml
 
-          # 确保默认配置指定 8MB Flash 和对应分区
+          # 确保默认配置指定 8MB Flash
           echo "CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y" >> sdkconfig.defaults
           echo "CONFIG_ESPTOOLPY_FLASHSIZE=\"8MB\"" >> sdkconfig.defaults
 
-          # 4. 注入环境变量并执行编译
+          # 4. 执行编译
           CONFIG=breadboard IDF_TARGET=esp32s3 idf.py build
 
       - name: Merge Binaries
