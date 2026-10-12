@@ -25,28 +25,44 @@ jobs:
           # 2. 锁定兼容的组件管理器版本
           python -m pip install "idf-component-manager~=2.1.0"
 
-          # 3. 为缺失的可选 capability 头文件建立桩（stub）目录与空文件
-          STUB_DIR="components/common/app_claw/include/stubs"
-          mkdir -p "$STUB_DIR"
-          touch "$STUB_DIR/cap_scheduler.h"
-          touch "$STUB_DIR/cap_agent_mgr.h"
-          touch "$STUB_DIR/cap_im_qq.h"
-          touch "$STUB_DIR/cap_im_feishu.h"
-          touch "$STUB_DIR/cap_im_dingtalk.h"
-          touch "$STUB_DIR/cap_im_wechat.h"
+          # 3. 自动扫描 app_claw 中缺失的所有 cap_*.h 和 cmd_*.h，批量生成桩文件
+          python3 -c '
+          import os, re
+
+          stub_dir = "components/common/app_claw/include/stubs"
+          os.makedirs(stub_dir, exist_ok=True)
+
+          # 扫描 app_claw 目录下的所有 C/H 文件
+          headers_needed = set()
+          for root, dirs, files in os.walk("components/common/app_claw"):
+              for f in files:
+                  if f.endswith((".c", ".h")):
+                      with open(os.path.join(root, f), "r", encoding="utf-8", errors="ignore") as fp:
+                          for line in fp:
+                              m = re.match(r"\s*#include\s+[\"<](cap_\w+\.h|cmd_cap_\w+\.h)[\">]", line)
+                              if m:
+                                  headers_needed.add(m.group(1))
+
+          for h in headers_needed:
+              h_path = os.path.join(stub_dir, h)
+              if not os.path.exists(h_path):
+                  with open(h_path, "w") as fp:
+                      fp.write("#pragma once\n// auto generated stub\n")
+                  print(f"Generated stub header: {h}")
+          '
 
           APP_CLAW_CMAKE="components/common/app_claw/CMakeLists.txt"
           if [ -f "$APP_CLAW_CMAKE" ]; then
             echo 'target_include_directories(${COMPONENT_LIB} PRIVATE "${CMAKE_CURRENT_LIST_DIR}/include/stubs")' >> "$APP_CLAW_CMAKE"
           fi
 
-          # 4. 全局清除 -Werror 限制与三元宏展开警告
+          # 4. 全局清除 -Werror 限制与三元表达式宏展开警告
           python3 -c '
           import os
           for root, dirs, files in os.walk("."):
               for f in files:
                   path = os.path.join(root, f)
-                  if f.endswith(".c") or f.endswith(".h"):
+                  if f.endswith((".c", ".h")):
                       try:
                           with open(path, "r", encoding="utf-8", errors="ignore") as fp:
                               txt = fp.read()
@@ -73,7 +89,7 @@ jobs:
 
           cd application/edge_agent
 
-          # 5. 补齐预构建占位与 8MB Flash 配置
+          # 5. 补齐预构建元数据与 8MB Flash 分区配置
           mkdir -p components/gen_bmgr_codes
           echo "boards: {}" > components/gen_bmgr_codes/gen_board_metadata.yaml
           echo "CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y" >> sdkconfig.defaults
