@@ -3,7 +3,7 @@ name: Build ESP-Claw Custom Firmware
 on:
   push:
     branches: [ master, main ]
-  workflow_dispatch: # 允许你在网页上手动一键触发
+  workflow_dispatch:
 
 jobs:
   build:
@@ -16,8 +16,11 @@ jobs:
 
       - name: Build with ESP-IDF
         uses: espressif/esp-idf-ci-action@v1
+        env:
+          # 告诉 ESP-Claw 编译目标配置（breadboard 针对标准 ESP32-S3 开发板）
+          CONFIG: "breadboard"
         with:
-          esp_idf_version: v5.3
+          esp_idf_version: v5.1.4
           target: esp32s3
           path: 'application/edge_agent'
 
