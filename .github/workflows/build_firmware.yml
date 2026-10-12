@@ -23,7 +23,7 @@ jobs:
           . /opt/esp/idf/export.sh
           python -m pip install "idf-component-manager~=2.1.0"
 
-          # 2. 清理全局 -Werror 与修复三元表达式
+          # 2. 清理全局 -Werror 并修复三元表达式警告
           python3 -c '
           import os
           for root, _, files in os.walk("."):
@@ -54,60 +54,55 @@ jobs:
                           pass
           '
 
-          # 3. 剥离 app_claw 中多余的 CLI/Lua 实现
+          # 3. 重写 app_claw 组件内的源文件，彻底剔除缺失模块的硬编码引用
           APP_CLAW_DIR="components/common/app_claw"
           if [ -d "$APP_CLAW_DIR" ]; then
-            echo '#include <stdio.h>' > "$APP_CLAW_DIR/app_claw_cli.c"
-            echo 'void app_claw_cli_start(void) {}' >> "$APP_CLAW_DIR/app_claw_cli.c"
+            # 桩化 app_claw.c
+            cat << 'EOF' > "$APP_CLAW_DIR/app_claw.c"
+          #include <stdio.h>
+          #include <stdbool.h>
+          #include "esp_err.h"
+          #include "esp_log.h"
+          #include "app_claw.h"
 
-            echo '#include <stdio.h>' > "$APP_CLAW_DIR/app_lua_modules.c"
-            echo 'void register_app_lua_modules(void) {}' >> "$APP_CLAW_DIR/app_lua_modules.c"
+          esp_err_t app_claw_init(void) { return ESP_OK; }
+          esp_err_t app_claw_start(void) { return ESP_OK; }
+          esp_err_t app_claw_stop(void) { return ESP_OK; }
+          esp_err_t app_claw_set_network_status(bool sta_connected, const char *ap_ssid) { return ESP_OK; }
+          EOF
 
-            echo '#include <stdio.h>' > "$APP_CLAW_DIR/app_capabilities.c"
-            echo 'void register_app_capabilities(void) {}' >> "$APP_CLAW_DIR/app_capabilities.c"
+            # 桩化 app_claw_cli.c
+            cat << 'EOF' > "$APP_CLAW_DIR/app_claw_cli.c"
+          #include <stdio.h>
+          #include "esp_err.h"
+          void app_claw_cli_start(void) {}
+          EOF
+
+            # 桩化 app_lua_modules.c
+            cat << 'EOF' > "$APP_CLAW_DIR/app_lua_modules.c"
+          #include <stdio.h>
+          #include "esp_err.h"
+          void register_app_lua_modules(void) {}
+          EOF
+
+            # 桩化 app_capabilities.c
+            cat << 'EOF' > "$APP_CLAW_DIR/app_capabilities.c"
+          #include <stdio.h>
+          #include "esp_err.h"
+          void register_app_capabilities(void) {}
+          EOF
           fi
-
-          # 4. 【终极扫描桩】：智能扫描整个 app_claw 中引用的所有头文件，只要不存在就自动创建桩文件
-          python3 -c '
-          import os, re
-          inc_dir = "components/common/app_claw/include"
-          os.makedirs(inc_dir, exist_ok=True)
-
-          # 提取 components/common/app_claw 下所有头文件引用
-          needed = set()
-          for root, _, files in os.walk("components/common/app_claw"):
-              for f in files:
-                  if f.endswith((".c", ".h")):
-                      with open(os.path.join(root, f), "r", encoding="utf-8", errors="ignore") as fp:
-                          for line in fp:
-                              m = re.findall(r"#include\s+[\"<]([\w\.-]+\.h)[\">]", line)
-                              for h in m:
-                                  needed.add(h)
-
-          # 如果在整棵源码树里搜不到这个头文件，就在 include/ 里创建一个空桩
-          for h in needed:
-              found = False
-              for root, _, files in os.walk("."):
-                  if h in files:
-                      found = True
-                      break
-              if not found:
-                  stub_path = os.path.join(inc_dir, h)
-                  with open(stub_path, "w", encoding="utf-8") as fp:
-                      fp.write("#pragma once\n")
-                  print(f"Created stub for: {h}")
-          '
 
           cd application/edge_agent
 
-          # 5. 元数据与 Flash 8MB 配置
+          # 4. 元数据与 Flash 8MB 配置
           mkdir -p components/gen_bmgr_codes
           echo "boards: {}" > components/gen_bmgr_codes/gen_board_metadata.yaml
           echo "CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y" >> sdkconfig.defaults
           echo "CONFIG_ESPTOOLPY_FLASHSIZE=\"8MB\"" >> sdkconfig.defaults
           echo "CONFIG_COMPILER_WARNINGS_ALL=n" >> sdkconfig.defaults
 
-          # 6. 正式编译
+          # 5. 正式编译
           CONFIG=breadboard IDF_TARGET=esp32s3 idf.py build
 
       - name: Merge Binaries
