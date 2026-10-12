@@ -25,51 +25,54 @@ jobs:
           # 2. 锁定兼容的组件管理器版本
           python -m pip install "idf-component-manager~=2.1.0"
 
-          # 3. 用 Python 脚本递归修复源码中的三元运算符警告与 -Werror 限制
-          python3 -c '
-          import os, glob
+          # 3. 补齐 capability 组件头文件包含路径，防止 app_claw 找不到头文件
+          APP_CLAW_CMAKE="components/common/app_claw/CMakeLists.txt"
+          if [ -f "$APP_CLAW_CMAKE" ]; then
+            echo 'idf_component_get_property(cur_inc app_claw INCLUDE_DIRS)' >> "$APP_CLAW_CMAKE"
+            echo 'file(GLOB_RECURSE CAP_INCS "${CMAKE_CURRENT_LIST_DIR}/../../claw_capabilities/*/include")' >> "$APP_CLAW_CMAKE"
+            echo 'target_include_directories(${COMPONENT_LIB} PUBLIC ${CAP_INCS})' >> "$APP_CLAW_CMAKE"
+          fi
 
-          # 遍历所有源文件，修正三元运算符在宏内的使用
+          # 4. 全局替换三元表达式警告并移除 -Werror
+          python3 -c '
+          import os
           for root, dirs, files in os.walk("."):
               for f in files:
+                  path = os.path.join(root, f)
                   if f.endswith(".c") or f.endswith(".h"):
-                      path = os.path.join(root, f)
                       try:
                           with open(path, "r", encoding="utf-8", errors="ignore") as fp:
-                              content = fp.read()
-                          if "ESP_LOG_LEVEL(rule_err == ESP_OK ? ESP_LOG_DEBUG : ESP_LOG_WARN" in content:
-                              content = content.replace(
+                              txt = fp.read()
+                          if "ESP_LOG_LEVEL(rule_err == ESP_OK ? ESP_LOG_DEBUG : ESP_LOG_WARN" in txt:
+                              txt = txt.replace(
                                   "ESP_LOG_LEVEL(rule_err == ESP_OK ? ESP_LOG_DEBUG : ESP_LOG_WARN",
                                   "ESP_LOG_LEVEL((rule_err == ESP_OK ? (int)ESP_LOG_DEBUG : (int)ESP_LOG_WARN)"
                               )
                               with open(path, "w", encoding="utf-8") as fp:
-                                  fp.write(content)
-                              print(f"Fixed ternary macro in: {path}")
-                      except Exception as e:
+                                  fp.write(txt)
+                      except Exception:
                           pass
                   elif f == "CMakeLists.txt" or f.endswith(".cmake"):
-                      path = os.path.join(root, f)
                       try:
                           with open(path, "r", encoding="utf-8", errors="ignore") as fp:
-                              content = fp.read()
-                          if "-Werror=all" in content or "-Werror" in content:
-                              content = content.replace("-Werror=all", "").replace("-Werror", "")
+                              txt = fp.read()
+                          if "-Werror" in txt:
+                              txt = txt.replace("-Werror=all", "").replace("-Werror", "")
                               with open(path, "w", encoding="utf-8") as fp:
-                                  fp.write(content)
-                              print(f"Removed -Werror in: {path}")
-                      except Exception as e:
+                                  fp.write(txt)
+                      except Exception:
                           pass
           '
 
           cd application/edge_agent
 
-          # 4. 补齐预构建占位与 Flash 配置
+          # 5. 补齐占位元数据与 Flash 配置
           mkdir -p components/gen_bmgr_codes
           echo "boards: {}" > components/gen_bmgr_codes/gen_board_metadata.yaml
           echo "CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y" >> sdkconfig.defaults
           echo "CONFIG_ESPTOOLPY_FLASHSIZE=\"8MB\"" >> sdkconfig.defaults
 
-          # 5. 执行正式编译
+          # 6. 执行正式编译
           CONFIG=breadboard IDF_TARGET=esp32s3 idf.py build
 
       - name: Merge Binaries
