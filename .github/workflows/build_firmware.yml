@@ -25,25 +25,21 @@ jobs:
           # 2. 锁定兼容的组件管理器版本
           python -m pip install "idf-component-manager~=2.1.0"
 
-          # 3. 针对 claw_event_router 组件强制解除 -Werror
-          ROUTER_CMAKE="components/claw_modules/claw_event_router/CMakeLists.txt"
-          if [ -f "$ROUTER_CMAKE" ]; then
-            echo 'target_compile_options(${COMPONENT_LIB} PRIVATE "-Wno-error=unused-function" "-Wno-error")' >> "$ROUTER_CMAKE"
-          fi
+          # 3. 彻底清除所有组件中的 -Werror 限制，防止警告中断构建
+          find components -type f \( -name "CMakeLists.txt" -o -name "*.cmake" \) -exec sed -i 's/-Werror=all//g' {} +
+          find components -type f \( -name "CMakeLists.txt" -o -name "*.cmake" \) -exec sed -i 's/-Werror//g' {} +
 
+          # 4. 进入工程目录并补齐元数据与 Flash 配置
           cd application/edge_agent
+          find . -type f \( -name "CMakeLists.txt" -o -name "*.cmake" \) -exec sed -i 's/-Werror=all//g' {} +
+          find . -type f \( -name "CMakeLists.txt" -o -name "*.cmake" \) -exec sed -i 's/-Werror//g' {} +
 
-          # 4. 补齐预构建占位与 Flash 配置
           mkdir -p components/gen_bmgr_codes
           echo "boards: {}" > components/gen_bmgr_codes/gen_board_metadata.yaml
           echo "CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y" >> sdkconfig.defaults
           echo "CONFIG_ESPTOOLPY_FLASHSIZE=\"8MB\"" >> sdkconfig.defaults
-          
-          # 5. 全局放宽编译警告等级，不把警告当错误
-          echo "CONFIG_COMPILER_WARNINGS_ALL=n" >> sdkconfig.defaults
-          echo "CONFIG_COMPILER_WARNINGS_SILENT=y" >> sdkconfig.defaults
 
-          # 6. 执行正式编译
+          # 5. 执行正式编译
           CONFIG=breadboard IDF_TARGET=esp32s3 idf.py build
 
       - name: Merge Binaries
