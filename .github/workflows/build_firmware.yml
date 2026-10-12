@@ -19,31 +19,24 @@ jobs:
       - name: Build Firmware
         shell: bash
         run: |
-          # 1. 激活 IDF 环境
+          # 1. 激活环境
           . /opt/esp/idf/export.sh
 
-          # 2. 保持兼容的组件管理器版本
+          # 2. 锁定兼容的组件管理器版本
           python -m pip install "idf-component-manager~=2.1.0"
 
           cd application/edge_agent
 
-          # 3. 如果官方根目录存在 build.sh，优先使用官方脚本；否则手动补齐预生成
-          if [ -f "./build.sh" ]; then
-            chmod +x ./build.sh
-            ./build.sh -c breadboard
-          elif [ -f "../../tools/build.sh" ]; then
-            chmod +x ../../tools/build.sh
-            ../../tools/build.sh -c breadboard
-          else
-            # 若无 build.sh，手动触发元数据生成脚本或创建空文件占位
-            mkdir -p components/gen_bmgr_codes
-            if [ -f "components/gen_bmgr_codes/gen_board_metadata.py" ]; then
-              python components/gen_bmgr_codes/gen_board_metadata.py --board breadboard
-            else
-              touch components/gen_bmgr_codes/gen_board_metadata.yaml
-            fi
-            CONFIG=breadboard IDF_TARGET=esp32s3 idf.py build
-          fi
+          # 3. 补齐预构建占位与 Flash 配置
+          mkdir -p components/gen_bmgr_codes
+          touch components/gen_bmgr_codes/gen_board_metadata.yaml
+
+          # 确保默认配置指定 8MB Flash 和对应分区
+          echo "CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y" >> sdkconfig.defaults
+          echo "CONFIG_ESPTOOLPY_FLASHSIZE=\"8MB\"" >> sdkconfig.defaults
+
+          # 4. 注入环境变量并执行编译
+          CONFIG=breadboard IDF_TARGET=esp32s3 idf.py build
 
       - name: Merge Binaries
         shell: bash
