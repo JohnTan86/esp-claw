@@ -31,7 +31,9 @@ static const char *TAG = "app_fs";
 
 static const char *const s_system_base_path = "/system";
 static const char *const s_flash_storage_base_path = "/fatfs";
+#ifdef CONFIG_SPIRAM
 static const char *const s_ramfs_base_path = "/ramfs";
+#endif
 static const char *const s_recovery_dir_name = ".recovery";
 
 static wl_handle_t s_wl_handle = WL_INVALID_HANDLE;
@@ -261,6 +263,7 @@ const char *app_fs_system_base_path(void)
     return s_system_base_path;
 }
 
+#ifdef CONFIG_SPIRAM
 static esp_err_t app_fs_init_ramfs(void)
 {
     ramfs_config_t config = {
@@ -279,6 +282,7 @@ static esp_err_t app_fs_init_ramfs(void)
 
     return ESP_OK;
 }
+#endif
 
 esp_err_t app_fs_init(void)
 {

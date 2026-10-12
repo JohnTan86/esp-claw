@@ -5,6 +5,7 @@
  */
 #include "http_server_priv.h"
 
+#if __has_include("lua_module_http_server.h")
 #include "lua_module_http_server.h"
 
 static esp_err_t lua_static_handler(httpd_req_t *req)
@@ -33,3 +34,10 @@ esp_err_t http_server_register_lua_app_routes(httpd_handle_t server)
     }
     return ESP_OK;
 }
+#else
+esp_err_t http_server_register_lua_app_routes(httpd_handle_t server)
+{
+    (void)server;
+    return ESP_OK;
+}
+#endif

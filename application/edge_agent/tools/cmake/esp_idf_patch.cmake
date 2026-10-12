@@ -165,3 +165,17 @@ esp_err_t esp_http_client_set_event_handler(esp_http_client_handle_t client, htt
     "http_client_set_event_handler_decl"
     "esp_err_t esp_http_client_set_event_handler(esp_http_client_handle_t client, http_event_handle_cb event_handler)"
 )
+
+edge_agent_patch_file_replace(
+    "$ENV{IDF_PATH}/components/esp_lcd/include/esp_lcd_io_spi.h"
+    [=[        unsigned int cs_high_active: 1;  /*!< CS line is high active */
+    } flags; /*!< Extra flags to fine-tune the SPI device */
+} esp_lcd_panel_io_spi_config_t;]=]
+    [=[        unsigned int cs_high_active: 1;  /*!< CS line is high active */
+    } flags; /*!< Extra flags to fine-tune the SPI device */
+    int cs_ena_pretrans;
+    int cs_ena_posttrans;
+} esp_lcd_panel_io_spi_config_t;]=]
+    "esp_lcd_io_spi_cs_ena"
+    "int cs_ena_pretrans;"
+)

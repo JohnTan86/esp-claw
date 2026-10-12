@@ -31,5 +31,9 @@ if(EDGE_AGENT_FLASH_SIZE)
         set(SDKCONFIG_DEFAULTS "${CMAKE_SOURCE_DIR}/sdkconfig.defaults;${EDGE_AGENT_PARTITION_DEFAULTS}")
     endif()
 
+    if(EXISTS "${EDGE_AGENT_BOARD_MANAGER_DEFAULTS}")
+        set(SDKCONFIG_DEFAULTS "${SDKCONFIG_DEFAULTS};${EDGE_AGENT_BOARD_MANAGER_DEFAULTS}")
+    endif()
+
     message(STATUS "${EDGE_AGENT_PROJECT_LOG_PREFIX} Partition table auto-selected: partitions_${EDGE_AGENT_FLASH_SIZE}.csv")
 endif()

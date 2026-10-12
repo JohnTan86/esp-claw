@@ -13,8 +13,22 @@
 #include "freertos/task.h"
 #include "usb/usb_host.h"
 #include "usb/uac_host.h"
+#if __has_include("esp_video_init.h")
 #include "esp_video_init.h"
 #include "esp_video_device.h"
+#define HAVE_ESP_VIDEO 1
+#else
+#define HAVE_ESP_VIDEO 0
+#endif
+
+#if __has_include("dev_camera.h")
+#include "dev_camera.h"
+#else
+typedef struct {
+    const char *dev_path;
+    const char *meta_path;
+} dev_camera_handle_t;
+#endif
 #include "esp_board_manager_includes.h"
 #include "gen_board_device_custom.h"
 #include "uac_codec.h"
@@ -295,7 +309,7 @@ static int usb_camera_init(void *config, int cfg_size, void **device_handle)
     (void)cfg_size;
     ESP_RETURN_ON_FALSE(device_handle != NULL, ESP_ERR_INVALID_ARG, TAG, "invalid camera handle");
 
-#if CONFIG_ESP_VIDEO_ENABLE_USB_UVC_VIDEO_DEVICE
+#if HAVE_ESP_VIDEO && CONFIG_ESP_VIDEO_ENABLE_USB_UVC_VIDEO_DEVICE
     esp_err_t ret = shared_usb_host_acquire();
     if (ret != ESP_OK) {
         return ret;
@@ -342,7 +356,7 @@ static int usb_camera_init(void *config, int cfg_size, void **device_handle)
 
 static int usb_camera_deinit(void *device_handle)
 {
-#if CONFIG_ESP_VIDEO_ENABLE_USB_UVC_VIDEO_DEVICE
+#if HAVE_ESP_VIDEO && CONFIG_ESP_VIDEO_ENABLE_USB_UVC_VIDEO_DEVICE
     free(device_handle);
     ESP_RETURN_ON_ERROR(esp_video_deinit(), TAG, "failed to deinit USB UVC camera");
     ESP_RETURN_ON_ERROR(shared_usb_host_release(), TAG, "failed to release USB host");

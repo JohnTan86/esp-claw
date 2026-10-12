@@ -9,7 +9,7 @@ devices:
     init_skip: true
     dependencies:
       espressif/led_strip:
-        version: "^3.0"
+        version: "~3.0.3"
         public: true
     config:
       max_leds: 1                  # Number of LEDs in the strip
@@ -24,20 +24,11 @@ devices:
     peripherals:
       - name: i2s_audio_out
 
-  - name: fake_camera # Just for invoking camera dependencies, no actual camera hardware connected
-    type: camera
-    version: default
-    sub_type: "dvp"
-    init_skip: true
-    peripherals:
-      - name: i2c_master                   # Must match a periph_i2c name; provides SCCB i2c_handle to esp_video
-        frequency: 100000                   # SCCB I2C frequency (Hz)
-
   - name: camera
     type: custom
     version: default
     dependencies:
-      espressif/usb_host_uvc: "2.4.2"
+      espressif/usb_host_uvc: "~2.5.0"
 
   - name: audio_dac
     type: custom

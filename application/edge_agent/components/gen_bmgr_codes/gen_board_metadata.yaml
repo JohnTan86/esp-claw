@@ -1,0 +1,74 @@
+version: 1
+board: esp32_S3_DevKitC_1_breadboard
+chip: esp32s3
+
+devices:
+  led_strip:
+    type: custom
+    peripherals:
+    - rmt_tx
+    dependencies:
+      espressif/led_strip:
+        version: ~3.0.3
+        public: true
+
+  fake_audio_dac:
+    type: audio_codec
+    peripherals:
+    - i2s_audio_out
+
+  camera:
+    type: custom
+    dependencies:
+      espressif/usb_host_uvc: ~2.5.0
+
+  audio_dac:
+    type: custom
+    dependencies:
+      espressif/usb_host_uac: ^1.4.0
+
+  audio_adc:
+    type: custom
+
+  display_lcd:
+    type: display_lcd
+    sub_type: spi
+    peripherals:
+    - spi_display
+    io:
+      reset_gpio_num: 6
+      cs_gpio_num: 15
+      dc_gpio_num: 7
+
+peripherals:
+  rmt_tx:
+    type: rmt
+    role: tx
+    io:
+      gpio_num: 38
+
+  i2c_master:
+    type: i2c
+    role: master
+    io:
+      sda_io_num: 2
+      scl_io_num: 3
+
+  i2s_audio_out:
+    type: i2s
+    role: master
+    format: pdm-out
+    io:
+      dout: 9
+
+  spi_display:
+    type: spi
+    role: master
+    io:
+      mosi_io_num: 5
+      sclk_io_num: 4
+
+  ledc_backlight:
+    type: ledc
+    io:
+      gpio_num: 16

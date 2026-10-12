@@ -25,8 +25,11 @@
 #include "cmd_wifi.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#if CONFIG_APP_CLAW_CAP_IM_WECHAT
+#if CONFIG_APP_CLAW_CAP_IM_WECHAT && __has_include("cap_im_wechat.h")
 #include "cap_im_wechat.h"
+#define HAVE_CAP_IM_WECHAT 1
+#else
+#define HAVE_CAP_IM_WECHAT 0
 #endif
 #include "app_config.h"
 
@@ -199,7 +202,7 @@ static esp_err_t main_restart_device(void)
     return ESP_OK;
 }
 
-#if CONFIG_APP_CLAW_CAP_IM_WECHAT
+#if HAVE_CAP_IM_WECHAT
 static esp_err_t main_wechat_login_start(const char *account_id, bool force)
 {
     return cap_im_wechat_qr_login_start(account_id, force);
@@ -347,7 +350,7 @@ void app_main(void)
             .save_config = main_save_config,
             .get_wifi_status = main_get_wifi_status,
             .restart_device = main_restart_device,
-#if CONFIG_APP_CLAW_CAP_IM_WECHAT
+#if HAVE_CAP_IM_WECHAT
             .wechat_login_start = main_wechat_login_start,
             .wechat_login_get_status = main_wechat_login_get_status,
             .wechat_login_cancel = main_wechat_login_cancel,

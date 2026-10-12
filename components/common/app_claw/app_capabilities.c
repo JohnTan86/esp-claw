@@ -12,60 +12,60 @@
 #include <stdbool.h>
 #include <string.h>
 
-#if CONFIG_APP_CLAW_CAP_AGENT_MGR
+#if CONFIG_APP_CLAW_CAP_AGENT_MGR && __has_include("cap_agent_mgr.h")
 #include "cap_agent_mgr.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_FILES
+#if CONFIG_APP_CLAW_CAP_FILES && __has_include("cap_files.h")
 #include "cap_files.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_FEISHU
+#if CONFIG_APP_CLAW_CAP_IM_FEISHU && __has_include("cap_im_feishu.h")
 #include "cap_im_feishu.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_QQ
+#if CONFIG_APP_CLAW_CAP_IM_QQ && __has_include("cap_im_qq.h")
 #include "cap_im_qq.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_TG
+#if CONFIG_APP_CLAW_CAP_IM_TG && __has_include("cap_im_tg.h")
 #include "cap_im_tg.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_WECHAT
+#if CONFIG_APP_CLAW_CAP_IM_WECHAT && __has_include("cap_im_wechat.h")
 #include "cap_im_wechat.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_LOCAL
+#if CONFIG_APP_CLAW_CAP_IM_LOCAL && __has_include("cap_im_local.h")
 #include "cap_im_local.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_LLM_INSPECT
+#if CONFIG_APP_CLAW_CAP_LLM_INSPECT && __has_include("cap_llm_inspect.h")
 #include "cap_llm_inspect.h"
 #endif
 #include "cap_llm_config.h"
-#if CONFIG_APP_CLAW_CAP_LUA
+#if CONFIG_APP_CLAW_CAP_LUA && __has_include("cap_lua.h")
 #include "cap_lua.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_MCP_CLIENT
+#if CONFIG_APP_CLAW_CAP_MCP_CLIENT && __has_include("cap_mcp_client.h")
 #include "cap_mcp_client.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_ROUTER_MGR
+#if CONFIG_APP_CLAW_CAP_ROUTER_MGR && __has_include("cap_router_mgr.h")
 #include "cap_router_mgr.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_SCHEDULER
+#if CONFIG_APP_CLAW_CAP_SCHEDULER && __has_include("cap_scheduler.h")
 #include "cap_scheduler.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_SESSION_MGR
+#if CONFIG_APP_CLAW_CAP_SESSION_MGR && __has_include("cap_session_mgr.h")
 #include "cap_session_mgr.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_SKILL_MGR
+#if CONFIG_APP_CLAW_CAP_SKILL_MGR && __has_include("cap_skill_mgr.h")
 #include "cap_skill_mgr.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_SYSTEM
+#if CONFIG_APP_CLAW_CAP_SYSTEM && __has_include("cap_system.h")
 #include "cap_system.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_HTTP_REQUEST
+#if CONFIG_APP_CLAW_CAP_HTTP_REQUEST && __has_include("cap_http_request.h")
 #include "cap_http_request.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_WEB_SEARCH
+#if CONFIG_APP_CLAW_CAP_WEB_SEARCH && __has_include("cap_web_search.h")
 #include "cap_web_search.h"
 #endif
 #include "claw_cap.h"
-#if CONFIG_APP_CLAW_CAP_MEMORY
+#if CONFIG_APP_CLAW_CAP_MEMORY && __has_include("claw_memory.h")
 #include "claw_memory.h"
 #endif
 #include "claw_paths.h"
@@ -415,7 +415,7 @@ static esp_err_t app_cap_register_llm_config_command(void)
     return cap_llm_config_register_group();
 }
 
-#if CONFIG_APP_CLAW_CAP_FILES
+#if CONFIG_APP_CLAW_CAP_FILES && __has_include("cap_files.h")
 static esp_err_t app_cap_register_files(const app_claw_config_t *config,
                                         const app_claw_storage_paths_t *paths)
 {
@@ -425,7 +425,7 @@ static esp_err_t app_cap_register_files(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_IM_QQ
+#if CONFIG_APP_CLAW_CAP_IM_QQ && __has_include("cap_im_qq.h")
 static esp_err_t app_cap_prepare_im_qq(const app_claw_config_t *config,
                                        const app_claw_storage_paths_t *paths)
 {
@@ -463,7 +463,7 @@ static esp_err_t app_cap_register_im_qq(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_IM_FEISHU
+#if CONFIG_APP_CLAW_CAP_IM_FEISHU && __has_include("cap_im_feishu.h")
 static esp_err_t app_cap_prepare_im_feishu(const app_claw_config_t *config,
                                            const app_claw_storage_paths_t *paths)
 {
@@ -495,7 +495,7 @@ static esp_err_t app_cap_register_im_feishu(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_IM_TG
+#if CONFIG_APP_CLAW_CAP_IM_TG && __has_include("cap_im_tg.h")
 static esp_err_t app_cap_prepare_im_tg(const app_claw_config_t *config,
                                        const app_claw_storage_paths_t *paths)
 {
@@ -526,7 +526,7 @@ static esp_err_t app_cap_register_im_tg(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_IM_WECHAT
+#if CONFIG_APP_CLAW_CAP_IM_WECHAT && __has_include("cap_im_wechat.h")
 static esp_err_t app_cap_prepare_im_wechat(const app_claw_config_t *config,
                                            const app_claw_storage_paths_t *paths)
 {
@@ -559,7 +559,7 @@ static esp_err_t app_cap_register_im_wechat(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_IM_LOCAL
+#if CONFIG_APP_CLAW_CAP_IM_LOCAL && __has_include("cap_im_local.h")
 static esp_err_t app_cap_prepare_im_local(const app_claw_config_t *config,
                                           const app_claw_storage_paths_t *paths)
 {
@@ -580,7 +580,7 @@ static esp_err_t app_cap_register_im_local(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_SCHEDULER
+#if CONFIG_APP_CLAW_CAP_SCHEDULER && __has_include("cap_scheduler.h")
 static esp_err_t app_cap_register_scheduler(const app_claw_config_t *config,
                                             const app_claw_storage_paths_t *paths)
 {
@@ -590,7 +590,7 @@ static esp_err_t app_cap_register_scheduler(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_LUA
+#if CONFIG_APP_CLAW_CAP_LUA && __has_include("cap_lua.h")
 static esp_err_t app_cap_prepare_lua(const app_claw_config_t *config,
                                      const app_claw_storage_paths_t *paths)
 {
@@ -618,7 +618,7 @@ static esp_err_t app_cap_register_lua(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_MCP_CLIENT
+#if CONFIG_APP_CLAW_CAP_MCP_CLIENT && __has_include("cap_mcp_client.h")
 static esp_err_t app_cap_register_mcp_client(const app_claw_config_t *config,
                                              const app_claw_storage_paths_t *paths)
 {
@@ -628,7 +628,7 @@ static esp_err_t app_cap_register_mcp_client(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_SKILL_MGR
+#if CONFIG_APP_CLAW_CAP_SKILL_MGR && __has_include("cap_skill_mgr.h")
 static esp_err_t app_cap_register_skill_mgr(const app_claw_config_t *config,
                                             const app_claw_storage_paths_t *paths)
 {
@@ -637,7 +637,7 @@ static esp_err_t app_cap_register_skill_mgr(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_SYSTEM
+#if CONFIG_APP_CLAW_CAP_SYSTEM && __has_include("cap_system.h")
 static esp_err_t app_cap_register_system(const app_claw_config_t *config,
                                          const app_claw_storage_paths_t *paths)
 {
@@ -647,7 +647,7 @@ static esp_err_t app_cap_register_system(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_MEMORY && CONFIG_APP_CLAW_MEMORY_MODE_FULL
+#if CONFIG_APP_CLAW_CAP_MEMORY && CONFIG_APP_CLAW_MEMORY_MODE_FULL && __has_include("claw_memory.h")
 static esp_err_t app_cap_register_memory(const app_claw_config_t *config,
                                          const app_claw_storage_paths_t *paths)
 {
@@ -657,7 +657,7 @@ static esp_err_t app_cap_register_memory(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_LLM_INSPECT
+#if CONFIG_APP_CLAW_CAP_LLM_INSPECT && __has_include("cap_llm_inspect.h")
 static esp_err_t app_cap_register_llm_inspect(const app_claw_config_t *config,
                                               const app_claw_storage_paths_t *paths)
 {
@@ -667,7 +667,7 @@ static esp_err_t app_cap_register_llm_inspect(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_HTTP_REQUEST
+#if CONFIG_APP_CLAW_CAP_HTTP_REQUEST && __has_include("cap_http_request.h")
 static esp_err_t app_cap_prepare_http_request(const app_claw_config_t *config,
                                               const app_claw_storage_paths_t *paths)
 {
@@ -687,7 +687,7 @@ static esp_err_t app_cap_register_http_request(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_WEB_SEARCH
+#if CONFIG_APP_CLAW_CAP_WEB_SEARCH && __has_include("cap_web_search.h")
 static esp_err_t app_cap_prepare_web_search(const app_claw_config_t *config,
                                             const app_claw_storage_paths_t *paths)
 {
@@ -715,7 +715,7 @@ static esp_err_t app_cap_register_web_search(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_ROUTER_MGR
+#if CONFIG_APP_CLAW_CAP_ROUTER_MGR && __has_include("cap_router_mgr.h")
 static esp_err_t app_cap_register_router_mgr(const app_claw_config_t *config,
                                              const app_claw_storage_paths_t *paths)
 {
@@ -725,7 +725,7 @@ static esp_err_t app_cap_register_router_mgr(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_SESSION_MGR
+#if CONFIG_APP_CLAW_CAP_SESSION_MGR && __has_include("cap_session_mgr.h")
 static esp_err_t app_cap_register_session_mgr(const app_claw_config_t *config,
                                               const app_claw_storage_paths_t *paths)
 {
@@ -735,7 +735,7 @@ static esp_err_t app_cap_register_session_mgr(const app_claw_config_t *config,
 }
 #endif
 
-#if CONFIG_APP_CLAW_CAP_AGENT_MGR
+#if CONFIG_APP_CLAW_CAP_AGENT_MGR && __has_include("cap_agent_mgr.h")
 static esp_err_t app_cap_register_agent_mgr(const app_claw_config_t *config,
                                             const app_claw_storage_paths_t *paths)
 {
@@ -746,115 +746,115 @@ static esp_err_t app_cap_register_agent_mgr(const app_claw_config_t *config,
 #endif
 
 static const app_capability_group_entry_t s_capability_group_entries[] = {
-#if CONFIG_APP_CLAW_CAP_AGENT_MGR
+#if CONFIG_APP_CLAW_CAP_AGENT_MGR && __has_include("cap_agent_mgr.h")
     { "cap_agent_mgr", "Agent Manager", "Register agent manager cap", true, NULL, app_cap_register_agent_mgr },
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_QQ
+#if CONFIG_APP_CLAW_CAP_IM_QQ && __has_include("cap_im_qq.h")
     { "cap_im_qq", "QQ", "Register QQ cap", false, app_cap_prepare_im_qq, app_cap_register_im_qq },
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_FEISHU
+#if CONFIG_APP_CLAW_CAP_IM_FEISHU && __has_include("cap_im_feishu.h")
     { "cap_im_feishu", "Feishu", "Register Feishu cap", false, app_cap_prepare_im_feishu, app_cap_register_im_feishu },
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_TG
+#if CONFIG_APP_CLAW_CAP_IM_TG && __has_include("cap_im_tg.h")
     { "cap_im_tg", "Telegram", "Register Telegram cap", false, app_cap_prepare_im_tg, app_cap_register_im_tg },
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_WECHAT
+#if CONFIG_APP_CLAW_CAP_IM_WECHAT && __has_include("cap_im_wechat.h")
     { "cap_im_wechat", "WeChat", "Register WeChat cap", false, app_cap_prepare_im_wechat, app_cap_register_im_wechat },
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_LOCAL
+#if CONFIG_APP_CLAW_CAP_IM_LOCAL && __has_include("cap_im_local.h")
     { "cap_im_local", "Local IM", "Register local / Web IM cap", false, app_cap_prepare_im_local, app_cap_register_im_local },
 #endif
-#if CONFIG_APP_CLAW_CAP_FILES
+#if CONFIG_APP_CLAW_CAP_FILES && __has_include("cap_files.h")
     { "cap_files", "Files", "Register files cap", true, NULL, app_cap_register_files },
 #endif
-#if CONFIG_APP_CLAW_CAP_SCHEDULER
+#if CONFIG_APP_CLAW_CAP_SCHEDULER && __has_include("cap_scheduler.h")
     { "cap_scheduler", "Scheduler", "Register scheduler cap", true, NULL, app_cap_register_scheduler },
 #endif
-#if CONFIG_APP_CLAW_CAP_LUA
+#if CONFIG_APP_CLAW_CAP_LUA && __has_include("cap_lua.h")
     { "cap_lua", "Lua", "Register Lua cap", true, app_cap_prepare_lua, app_cap_register_lua },
 #endif
-#if CONFIG_APP_CLAW_CAP_MCP_CLIENT
+#if CONFIG_APP_CLAW_CAP_MCP_CLIENT && __has_include("cap_mcp_client.h")
     { "cap_mcp_client", "MCP Client", "Register MCP client cap", false, NULL, app_cap_register_mcp_client },
 #endif
-#if CONFIG_APP_CLAW_CAP_SKILL_MGR
+#if CONFIG_APP_CLAW_CAP_SKILL_MGR && __has_include("cap_skill_mgr.h")
     { "cap_skill", "Skill Manager", "Register skill cap", true, NULL, app_cap_register_skill_mgr },
 #endif
-#if CONFIG_APP_CLAW_CAP_SYSTEM
+#if CONFIG_APP_CLAW_CAP_SYSTEM && __has_include("cap_system.h")
     { "cap_system", "System", "Register system cap", true, NULL, app_cap_register_system },
 #endif
-#if CONFIG_APP_CLAW_CAP_MEMORY && CONFIG_APP_CLAW_MEMORY_MODE_FULL
+#if CONFIG_APP_CLAW_CAP_MEMORY && CONFIG_APP_CLAW_MEMORY_MODE_FULL && __has_include("claw_memory.h")
     { "claw_memory", "Memory", "Register claw_memory group", true, NULL, app_cap_register_memory },
 #endif
-#if CONFIG_APP_CLAW_CAP_LLM_INSPECT
+#if CONFIG_APP_CLAW_CAP_LLM_INSPECT && __has_include("cap_llm_inspect.h")
     { "cap_llm_inspect", "LLM Inspect", "Register LLM inspect cap", true, NULL, app_cap_register_llm_inspect },
 #endif
-#if CONFIG_APP_CLAW_CAP_HTTP_REQUEST
+#if CONFIG_APP_CLAW_CAP_HTTP_REQUEST && __has_include("cap_http_request.h")
     { "cap_http_request", "HTTP Request", "Register HTTP request cap", true, app_cap_prepare_http_request, app_cap_register_http_request },
 #endif
-#if CONFIG_APP_CLAW_CAP_WEB_SEARCH
+#if CONFIG_APP_CLAW_CAP_WEB_SEARCH && __has_include("cap_web_search.h")
     { "cap_web_search", "Web Search", "Register web search cap", true, app_cap_prepare_web_search, app_cap_register_web_search },
 #endif
-#if CONFIG_APP_CLAW_CAP_ROUTER_MGR
+#if CONFIG_APP_CLAW_CAP_ROUTER_MGR && __has_include("cap_router_mgr.h")
     { "cap_router_mgr", "Router Manager", "Register router manager cap", true, NULL, app_cap_register_router_mgr },
 #endif
-#if CONFIG_APP_CLAW_CAP_SESSION_MGR
+#if CONFIG_APP_CLAW_CAP_SESSION_MGR && __has_include("cap_session_mgr.h")
     { "cap_session_mgr", "Session Manager", "Register session manager cap", false, NULL, app_cap_register_session_mgr },
 #endif
 };
 
 static const app_capability_group_info_t s_capability_group_infos[] = {
-#if CONFIG_APP_CLAW_CAP_AGENT_MGR
+#if CONFIG_APP_CLAW_CAP_AGENT_MGR && __has_include("cap_agent_mgr.h")
     { "cap_agent_mgr", "Agent Manager", true },
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_QQ
+#if CONFIG_APP_CLAW_CAP_IM_QQ && __has_include("cap_im_qq.h")
     { "cap_im_qq", "QQ", false },
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_FEISHU
+#if CONFIG_APP_CLAW_CAP_IM_FEISHU && __has_include("cap_im_feishu.h")
     { "cap_im_feishu", "Feishu", false },
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_TG
+#if CONFIG_APP_CLAW_CAP_IM_TG && __has_include("cap_im_tg.h")
     { "cap_im_tg", "Telegram", false },
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_WECHAT
+#if CONFIG_APP_CLAW_CAP_IM_WECHAT && __has_include("cap_im_wechat.h")
     { "cap_im_wechat", "WeChat", false },
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_LOCAL
+#if CONFIG_APP_CLAW_CAP_IM_LOCAL && __has_include("cap_im_local.h")
     { "cap_im_local", "Local IM", false },
 #endif
-#if CONFIG_APP_CLAW_CAP_FILES
+#if CONFIG_APP_CLAW_CAP_FILES && __has_include("cap_files.h")
     { "cap_files", "Files", true },
 #endif
-#if CONFIG_APP_CLAW_CAP_SCHEDULER
+#if CONFIG_APP_CLAW_CAP_SCHEDULER && __has_include("cap_scheduler.h")
     { "cap_scheduler", "Scheduler", false },
 #endif
-#if CONFIG_APP_CLAW_CAP_LUA
+#if CONFIG_APP_CLAW_CAP_LUA && __has_include("cap_lua.h")
     { "cap_lua", "Lua", true },
 #endif
-#if CONFIG_APP_CLAW_CAP_MCP_CLIENT
+#if CONFIG_APP_CLAW_CAP_MCP_CLIENT && __has_include("cap_mcp_client.h")
     { "cap_mcp_client", "MCP Client", false },
 #endif
-#if CONFIG_APP_CLAW_CAP_SKILL_MGR
+#if CONFIG_APP_CLAW_CAP_SKILL_MGR && __has_include("cap_skill_mgr.h")
     { "cap_skill", "Skill Manager", true },
 #endif
-#if CONFIG_APP_CLAW_CAP_SYSTEM
+#if CONFIG_APP_CLAW_CAP_SYSTEM && __has_include("cap_system.h")
     { "cap_system", "System", true },
 #endif
-#if CONFIG_APP_CLAW_CAP_MEMORY && CONFIG_APP_CLAW_MEMORY_MODE_FULL
+#if CONFIG_APP_CLAW_CAP_MEMORY && CONFIG_APP_CLAW_MEMORY_MODE_FULL && __has_include("claw_memory.h")
     { "claw_memory", "Memory", true },
 #endif
-#if CONFIG_APP_CLAW_CAP_LLM_INSPECT
+#if CONFIG_APP_CLAW_CAP_LLM_INSPECT && __has_include("cap_llm_inspect.h")
     { "cap_llm_inspect", "LLM Inspect", false },
 #endif
-#if CONFIG_APP_CLAW_CAP_HTTP_REQUEST
+#if CONFIG_APP_CLAW_CAP_HTTP_REQUEST && __has_include("cap_http_request.h")
     { "cap_http_request", "HTTP Request", false },
 #endif
-#if CONFIG_APP_CLAW_CAP_WEB_SEARCH
+#if CONFIG_APP_CLAW_CAP_WEB_SEARCH && __has_include("cap_web_search.h")
     { "cap_web_search", "Web Search", false },
 #endif
-#if CONFIG_APP_CLAW_CAP_ROUTER_MGR
+#if CONFIG_APP_CLAW_CAP_ROUTER_MGR && __has_include("cap_router_mgr.h")
     { "cap_router_mgr", "Router Manager", false },
 #endif
-#if CONFIG_APP_CLAW_CAP_SESSION_MGR
+#if CONFIG_APP_CLAW_CAP_SESSION_MGR && __has_include("cap_session_mgr.h")
     { "cap_session_mgr", "Session Manager", false },
 #endif
 };

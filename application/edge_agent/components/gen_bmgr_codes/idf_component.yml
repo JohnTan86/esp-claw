@@ -1,0 +1,6 @@
+dependencies:
+  espressif/led_strip:
+    version: ~3.0.3
+    public: true
+  espressif/usb_host_uvc: ~2.5.0
+  espressif/usb_host_uac: ^1.4.0

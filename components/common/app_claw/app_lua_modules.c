@@ -15,114 +15,114 @@
 #include "esp_log.h"
 
 /* --- lua_driver (hardware peripheral drivers) --- */
-#if CONFIG_APP_CLAW_LUA_DRIVER_ADC
+#if CONFIG_APP_CLAW_LUA_DRIVER_ADC && __has_include("lua_driver_adc.h")
 #include "lua_driver_adc.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_GPIO
+#if CONFIG_APP_CLAW_LUA_DRIVER_GPIO && __has_include("lua_driver_gpio.h")
 #include "lua_driver_gpio.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_I2C
+#if CONFIG_APP_CLAW_LUA_DRIVER_I2C && __has_include("lua_driver_i2c.h")
 #include "lua_driver_i2c.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_MCPWM
+#if CONFIG_APP_CLAW_LUA_DRIVER_MCPWM && __has_include("lua_driver_mcpwm.h")
 #include "lua_driver_mcpwm.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_PCNT
+#if CONFIG_APP_CLAW_LUA_DRIVER_PCNT && __has_include("lua_driver_pcnt.h")
 #include "lua_driver_pcnt.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_RMT
+#if CONFIG_APP_CLAW_LUA_DRIVER_RMT && __has_include("lua_driver_rmt.h")
 #include "lua_driver_rmt.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_TOUCH
+#if CONFIG_APP_CLAW_LUA_DRIVER_TOUCH && __has_include("lua_driver_touch.h")
 #include "lua_driver_touch.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_UART
+#if CONFIG_APP_CLAW_LUA_DRIVER_UART && __has_include("lua_driver_uart.h")
 #include "lua_driver_uart.h"
 #endif
 
 /* --- lua_module (higher-level modules) --- */
-#if CONFIG_APP_CLAW_LUA_MODULE_AUDIO && defined(CONFIG_ESP_BOARD_DEV_AUDIO_CODEC_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_AUDIO && defined(CONFIG_ESP_BOARD_DEV_AUDIO_CODEC_SUPPORT) && __has_include("lua_module_audio.h")
 #include "lua_module_audio.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_BOARD_MANAGER
+#if CONFIG_APP_CLAW_LUA_MODULE_BOARD_MANAGER && __has_include("lua_module_board_manager.h")
 #include "lua_module_board_manager.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_BUTTON
+#if CONFIG_APP_CLAW_LUA_MODULE_BUTTON && __has_include("lua_module_button.h")
 #include "lua_module_button.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_BLE
+#if CONFIG_APP_CLAW_LUA_MODULE_BLE && __has_include("lua_module_ble.h")
 #include "lua_module_ble.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_BLE_HID
+#if CONFIG_APP_CLAW_LUA_MODULE_BLE_HID && __has_include("lua_module_ble_hid.h")
 #include "lua_module_ble_hid.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_CAMERA && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_CAMERA && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT) && __has_include("lua_module_camera.h")
 #include "lua_module_camera.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_CAPABILITY
+#if CONFIG_APP_CLAW_LUA_MODULE_CAPABILITY && __has_include("lua_module_capability.h")
 #include "lua_module_capability.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_DELAY
+#if CONFIG_APP_CLAW_LUA_MODULE_DELAY && __has_include("lua_module_delay.h")
 #include "lua_module_delay.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_DISPLAY
+#if CONFIG_APP_CLAW_LUA_MODULE_DISPLAY && __has_include("lua_module_display.h")
 #include "lua_module_display.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_ENVIRONMENTAL_SENSOR
+#if CONFIG_APP_CLAW_LUA_MODULE_ENVIRONMENTAL_SENSOR && __has_include("lua_module_environmental_sensor.h")
 #include "lua_module_environmental_sensor.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_EVENT_PUBLISHER
+#if CONFIG_APP_CLAW_LUA_MODULE_EVENT_PUBLISHER && __has_include("lua_module_event_publisher.h")
 #include "lua_module_event_publisher.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_HTTP_SERVER
+#if CONFIG_APP_CLAW_LUA_MODULE_HTTP_SERVER && __has_include("lua_module_http_server.h")
 #include "lua_module_http_server.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_JSON
+#if CONFIG_APP_CLAW_LUA_MODULE_JSON && __has_include("lua_module_json.h")
 #include "lua_module_json.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_IMAGE
+#if CONFIG_APP_CLAW_LUA_MODULE_IMAGE && __has_include("lua_image.h")
 #include "lua_image.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_THREAD
+#if CONFIG_APP_CLAW_LUA_MODULE_THREAD && __has_include("lua_module_thread.h")
 #include "lua_module_thread.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_IMU
+#if CONFIG_APP_CLAW_LUA_MODULE_IMU && __has_include("lua_module_imu.h")
 #include "lua_module_imu.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_IR
+#if CONFIG_APP_CLAW_LUA_MODULE_IR && __has_include("lua_module_ir.h")
 #include "lua_module_ir.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_KNOB
+#if CONFIG_APP_CLAW_LUA_MODULE_KNOB && __has_include("lua_module_knob.h")
 #include "lua_module_knob.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LCD
+#if CONFIG_APP_CLAW_LUA_MODULE_LCD && __has_include("lua_module_lcd.h")
 #include "lua_module_lcd.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LCD_TOUCH && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUPPORT) && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUB_I2C_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_LCD_TOUCH && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUPPORT) && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUB_I2C_SUPPORT) && __has_include("lua_module_lcd_touch.h")
 #include "lua_module_lcd_touch.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LEDC
+#if CONFIG_APP_CLAW_LUA_MODULE_LEDC && __has_include("lua_module_ledc.h")
 #include "lua_module_ledc.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LED_STRIP
+#if CONFIG_APP_CLAW_LUA_MODULE_LED_STRIP && __has_include("lua_module_led_strip.h")
 #include "lua_module_led_strip.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LVGL
+#if CONFIG_APP_CLAW_LUA_MODULE_LVGL && __has_include("lua_module_lvgl.h")
 #include "lua_module_lvgl.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_MAGNETOMETER
+#if CONFIG_APP_CLAW_LUA_MODULE_MAGNETOMETER && __has_include("lua_module_magnetometer.h")
 #include "lua_module_magnetometer.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_SCI
+#if CONFIG_APP_CLAW_LUA_MODULE_SCI && __has_include("lua_module_sci.h")
 #include "lua_module_sci.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_STORAGE
+#if CONFIG_APP_CLAW_LUA_MODULE_STORAGE && __has_include("lua_module_storage.h")
 #include "lua_module_storage.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_SYSTEM
+#if CONFIG_APP_CLAW_LUA_MODULE_SYSTEM && __has_include("lua_module_system.h")
 #include "lua_module_system.h"
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_VISION && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_VISION && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT) && __has_include("lua_module_vision.h")
 #include "lua_module_vision.h"
 #endif
 
@@ -318,7 +318,7 @@ static esp_err_t app_lua_build_module_map(const char *configured_modules,
 
 /* --- lua_driver register wrappers --- */
 
-#if CONFIG_APP_CLAW_LUA_DRIVER_ADC
+#if CONFIG_APP_CLAW_LUA_DRIVER_ADC && __has_include("lua_driver_adc.h")
 static esp_err_t app_lua_register_adc(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -326,7 +326,7 @@ static esp_err_t app_lua_register_adc(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_DRIVER_GPIO
+#if CONFIG_APP_CLAW_LUA_DRIVER_GPIO && __has_include("lua_driver_gpio.h")
 static esp_err_t app_lua_register_gpio(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -334,7 +334,7 @@ static esp_err_t app_lua_register_gpio(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_DRIVER_I2C
+#if CONFIG_APP_CLAW_LUA_DRIVER_I2C && __has_include("lua_driver_i2c.h")
 static esp_err_t app_lua_register_i2c(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -342,7 +342,7 @@ static esp_err_t app_lua_register_i2c(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_DRIVER_MCPWM
+#if CONFIG_APP_CLAW_LUA_DRIVER_MCPWM && __has_include("lua_driver_mcpwm.h")
 static esp_err_t app_lua_register_mcpwm(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -350,7 +350,7 @@ static esp_err_t app_lua_register_mcpwm(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_DRIVER_PCNT
+#if CONFIG_APP_CLAW_LUA_DRIVER_PCNT && __has_include("lua_driver_pcnt.h")
 static esp_err_t app_lua_register_pcnt(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -358,7 +358,7 @@ static esp_err_t app_lua_register_pcnt(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_DRIVER_RMT
+#if CONFIG_APP_CLAW_LUA_DRIVER_RMT && __has_include("lua_driver_rmt.h")
 static esp_err_t app_lua_register_rmt(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -366,7 +366,7 @@ static esp_err_t app_lua_register_rmt(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_DRIVER_TOUCH
+#if CONFIG_APP_CLAW_LUA_DRIVER_TOUCH && __has_include("lua_driver_touch.h")
 static esp_err_t app_lua_register_touch(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -374,7 +374,7 @@ static esp_err_t app_lua_register_touch(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_DRIVER_UART
+#if CONFIG_APP_CLAW_LUA_DRIVER_UART && __has_include("lua_driver_uart.h")
 static esp_err_t app_lua_register_uart(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -384,7 +384,7 @@ static esp_err_t app_lua_register_uart(const char *fatfs_base_path)
 
 /* --- lua_module register wrappers --- */
 
-#if CONFIG_APP_CLAW_LUA_MODULE_AUDIO && defined(CONFIG_ESP_BOARD_DEV_AUDIO_CODEC_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_AUDIO && defined(CONFIG_ESP_BOARD_DEV_AUDIO_CODEC_SUPPORT) && __has_include("lua_module_audio.h")
 static esp_err_t app_lua_register_audio(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -392,7 +392,7 @@ static esp_err_t app_lua_register_audio(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_BOARD_MANAGER
+#if CONFIG_APP_CLAW_LUA_MODULE_BOARD_MANAGER && __has_include("lua_module_board_manager.h")
 static esp_err_t app_lua_register_board_manager(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -400,7 +400,7 @@ static esp_err_t app_lua_register_board_manager(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_BUTTON
+#if CONFIG_APP_CLAW_LUA_MODULE_BUTTON && __has_include("lua_module_button.h")
 static esp_err_t app_lua_register_button(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -408,7 +408,7 @@ static esp_err_t app_lua_register_button(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_BLE
+#if CONFIG_APP_CLAW_LUA_MODULE_BLE && __has_include("lua_module_ble.h")
 static esp_err_t app_lua_register_ble(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -416,7 +416,7 @@ static esp_err_t app_lua_register_ble(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_BLE_HID
+#if CONFIG_APP_CLAW_LUA_MODULE_BLE_HID && __has_include("lua_module_ble_hid.h")
 static esp_err_t app_lua_register_ble_hid(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -424,7 +424,7 @@ static esp_err_t app_lua_register_ble_hid(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_CAMERA && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_CAMERA && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT) && __has_include("lua_module_camera.h")
 static esp_err_t app_lua_register_camera(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -432,7 +432,7 @@ static esp_err_t app_lua_register_camera(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_CAPABILITY
+#if CONFIG_APP_CLAW_LUA_MODULE_CAPABILITY && __has_include("lua_module_capability.h")
 static esp_err_t app_lua_register_capability(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -440,7 +440,7 @@ static esp_err_t app_lua_register_capability(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_DELAY
+#if CONFIG_APP_CLAW_LUA_MODULE_DELAY && __has_include("lua_module_delay.h")
 static esp_err_t app_lua_register_delay(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -448,7 +448,7 @@ static esp_err_t app_lua_register_delay(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_DISPLAY
+#if CONFIG_APP_CLAW_LUA_MODULE_DISPLAY && __has_include("lua_module_display.h")
 static esp_err_t app_lua_register_display(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -456,7 +456,7 @@ static esp_err_t app_lua_register_display(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_ENVIRONMENTAL_SENSOR
+#if CONFIG_APP_CLAW_LUA_MODULE_ENVIRONMENTAL_SENSOR && __has_include("lua_module_environmental_sensor.h")
 static esp_err_t app_lua_register_environmental_sensor(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -464,7 +464,7 @@ static esp_err_t app_lua_register_environmental_sensor(const char *fatfs_base_pa
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_EVENT_PUBLISHER
+#if CONFIG_APP_CLAW_LUA_MODULE_EVENT_PUBLISHER && __has_include("lua_module_event_publisher.h")
 static esp_err_t app_lua_register_event_publisher(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -472,7 +472,7 @@ static esp_err_t app_lua_register_event_publisher(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_HTTP_SERVER
+#if CONFIG_APP_CLAW_LUA_MODULE_HTTP_SERVER && __has_include("lua_module_http_server.h")
 static esp_err_t app_lua_register_http_server(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -480,7 +480,7 @@ static esp_err_t app_lua_register_http_server(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_JSON
+#if CONFIG_APP_CLAW_LUA_MODULE_JSON && __has_include("lua_module_json.h")
 static esp_err_t app_lua_register_json(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -488,7 +488,7 @@ static esp_err_t app_lua_register_json(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_IMAGE
+#if CONFIG_APP_CLAW_LUA_MODULE_IMAGE && __has_include("lua_image.h")
 static esp_err_t app_lua_register_image(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -496,7 +496,7 @@ static esp_err_t app_lua_register_image(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_THREAD
+#if CONFIG_APP_CLAW_LUA_MODULE_THREAD && __has_include("lua_module_thread.h")
 static esp_err_t app_lua_register_thread(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -504,7 +504,7 @@ static esp_err_t app_lua_register_thread(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_IMU
+#if CONFIG_APP_CLAW_LUA_MODULE_IMU && __has_include("lua_module_imu.h")
 static esp_err_t app_lua_register_imu(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -512,7 +512,7 @@ static esp_err_t app_lua_register_imu(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_IR
+#if CONFIG_APP_CLAW_LUA_MODULE_IR && __has_include("lua_module_ir.h")
 static esp_err_t app_lua_register_ir(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -520,7 +520,7 @@ static esp_err_t app_lua_register_ir(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_KNOB
+#if CONFIG_APP_CLAW_LUA_MODULE_KNOB && __has_include("lua_module_knob.h")
 static esp_err_t app_lua_register_knob(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -528,7 +528,7 @@ static esp_err_t app_lua_register_knob(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_LCD
+#if CONFIG_APP_CLAW_LUA_MODULE_LCD && __has_include("lua_module_lcd.h")
 static esp_err_t app_lua_register_lcd(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -536,7 +536,7 @@ static esp_err_t app_lua_register_lcd(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_LCD_TOUCH && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUPPORT) && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUB_I2C_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_LCD_TOUCH && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUPPORT) && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUB_I2C_SUPPORT) && __has_include("lua_module_lcd_touch.h")
 static esp_err_t app_lua_register_lcd_touch(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -544,7 +544,7 @@ static esp_err_t app_lua_register_lcd_touch(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_LEDC
+#if CONFIG_APP_CLAW_LUA_MODULE_LEDC && __has_include("lua_module_ledc.h")
 static esp_err_t app_lua_register_ledc(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -552,7 +552,7 @@ static esp_err_t app_lua_register_ledc(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_LED_STRIP
+#if CONFIG_APP_CLAW_LUA_MODULE_LED_STRIP && __has_include("lua_module_led_strip.h")
 static esp_err_t app_lua_register_led_strip(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -560,14 +560,14 @@ static esp_err_t app_lua_register_led_strip(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_LVGL
+#if CONFIG_APP_CLAW_LUA_MODULE_LVGL && __has_include("lua_module_lvgl.h")
 static esp_err_t app_lua_register_lvgl(const char *fatfs_base_path)
 {
     return lua_module_lvgl_register_with_data_root(fatfs_base_path);
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_MAGNETOMETER
+#if CONFIG_APP_CLAW_LUA_MODULE_MAGNETOMETER && __has_include("lua_module_magnetometer.h")
 static esp_err_t app_lua_register_magnetometer(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -575,7 +575,7 @@ static esp_err_t app_lua_register_magnetometer(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_SCI
+#if CONFIG_APP_CLAW_LUA_MODULE_SCI && __has_include("lua_module_sci.h")
 static esp_err_t app_lua_register_sci(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -583,7 +583,7 @@ static esp_err_t app_lua_register_sci(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_STORAGE
+#if CONFIG_APP_CLAW_LUA_MODULE_STORAGE && __has_include("lua_module_storage.h")
 static esp_err_t app_lua_register_storage(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -591,7 +591,7 @@ static esp_err_t app_lua_register_storage(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_SYSTEM
+#if CONFIG_APP_CLAW_LUA_MODULE_SYSTEM && __has_include("lua_module_system.h")
 static esp_err_t app_lua_register_system(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -599,7 +599,7 @@ static esp_err_t app_lua_register_system(const char *fatfs_base_path)
 }
 #endif
 
-#if CONFIG_APP_CLAW_LUA_MODULE_VISION && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_VISION && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT) && __has_include("lua_module_vision.h")
 static esp_err_t app_lua_register_vision(const char *fatfs_base_path)
 {
     (void)fatfs_base_path;
@@ -609,226 +609,226 @@ static esp_err_t app_lua_register_vision(const char *fatfs_base_path)
 
 static const app_lua_module_entry_t s_lua_module_entries[] = {
     /* --- lua_driver (hardware peripheral drivers) --- */
-#if CONFIG_APP_CLAW_LUA_DRIVER_ADC
+#if CONFIG_APP_CLAW_LUA_DRIVER_ADC && __has_include("lua_driver_adc.h")
     { "adc", "ADC", app_lua_register_adc },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_GPIO
+#if CONFIG_APP_CLAW_LUA_DRIVER_GPIO && __has_include("lua_driver_gpio.h")
     { "gpio", "GPIO", app_lua_register_gpio },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_I2C
+#if CONFIG_APP_CLAW_LUA_DRIVER_I2C && __has_include("lua_driver_i2c.h")
     { "i2c", "I2C", app_lua_register_i2c },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_MCPWM
+#if CONFIG_APP_CLAW_LUA_DRIVER_MCPWM && __has_include("lua_driver_mcpwm.h")
     { "mcpwm", "MCPWM", app_lua_register_mcpwm },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_PCNT
+#if CONFIG_APP_CLAW_LUA_DRIVER_PCNT && __has_include("lua_driver_pcnt.h")
     { "pcnt", "PCNT", app_lua_register_pcnt },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_RMT
+#if CONFIG_APP_CLAW_LUA_DRIVER_RMT && __has_include("lua_driver_rmt.h")
     { "rmt", "RMT", app_lua_register_rmt },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_TOUCH
+#if CONFIG_APP_CLAW_LUA_DRIVER_TOUCH && __has_include("lua_driver_touch.h")
     { "touch", "Touch", app_lua_register_touch },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_UART
+#if CONFIG_APP_CLAW_LUA_DRIVER_UART && __has_include("lua_driver_uart.h")
     { "uart", "UART", app_lua_register_uart },
 #endif
     /* --- lua_module (higher-level modules) --- */
-#if CONFIG_APP_CLAW_LUA_MODULE_AUDIO && defined(CONFIG_ESP_BOARD_DEV_AUDIO_CODEC_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_AUDIO && defined(CONFIG_ESP_BOARD_DEV_AUDIO_CODEC_SUPPORT) && __has_include("lua_module_audio.h")
     { "audio", "Audio", app_lua_register_audio },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_BOARD_MANAGER
+#if CONFIG_APP_CLAW_LUA_MODULE_BOARD_MANAGER && __has_include("lua_module_board_manager.h")
     { "board_manager", "Board Manager", app_lua_register_board_manager },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_BUTTON
+#if CONFIG_APP_CLAW_LUA_MODULE_BUTTON && __has_include("lua_module_button.h")
     { "button", "Button", app_lua_register_button },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_BLE
+#if CONFIG_APP_CLAW_LUA_MODULE_BLE && __has_include("lua_module_ble.h")
     { "ble", "BLE", app_lua_register_ble },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_BLE_HID
+#if CONFIG_APP_CLAW_LUA_MODULE_BLE_HID && __has_include("lua_module_ble_hid.h")
     { "ble_hid", "BLE HID", app_lua_register_ble_hid },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_CAMERA && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_CAMERA && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT) && __has_include("lua_module_camera.h")
     { "camera", "Camera", app_lua_register_camera },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_CAPABILITY
+#if CONFIG_APP_CLAW_LUA_MODULE_CAPABILITY && __has_include("lua_module_capability.h")
     { "capability", "Capability", app_lua_register_capability },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_DELAY
+#if CONFIG_APP_CLAW_LUA_MODULE_DELAY && __has_include("lua_module_delay.h")
     { "delay", "Delay", app_lua_register_delay },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_DISPLAY
+#if CONFIG_APP_CLAW_LUA_MODULE_DISPLAY && __has_include("lua_module_display.h")
     { "display", "Display", app_lua_register_display },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_ENVIRONMENTAL_SENSOR
+#if CONFIG_APP_CLAW_LUA_MODULE_ENVIRONMENTAL_SENSOR && __has_include("lua_module_environmental_sensor.h")
     { "environmental_sensor", "Environmental Sensor", app_lua_register_environmental_sensor },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_EVENT_PUBLISHER
+#if CONFIG_APP_CLAW_LUA_MODULE_EVENT_PUBLISHER && __has_include("lua_module_event_publisher.h")
     { "event_publisher", "Event Publisher", app_lua_register_event_publisher },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_HTTP_SERVER
+#if CONFIG_APP_CLAW_LUA_MODULE_HTTP_SERVER && __has_include("lua_module_http_server.h")
     { "http_server", "HTTP Server", app_lua_register_http_server },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_JSON
+#if CONFIG_APP_CLAW_LUA_MODULE_JSON && __has_include("lua_module_json.h")
     { "json", "JSON", app_lua_register_json },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_IMAGE
+#if CONFIG_APP_CLAW_LUA_MODULE_IMAGE && __has_include("lua_image.h")
     { "image", "Image", app_lua_register_image },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_THREAD
+#if CONFIG_APP_CLAW_LUA_MODULE_THREAD && __has_include("lua_module_thread.h")
     { "thread", "Thread", app_lua_register_thread },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_IMU
+#if CONFIG_APP_CLAW_LUA_MODULE_IMU && __has_include("lua_module_imu.h")
     { "imu", "IMU", app_lua_register_imu },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_IR
+#if CONFIG_APP_CLAW_LUA_MODULE_IR && __has_include("lua_module_ir.h")
     { "ir", "IR", app_lua_register_ir },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_KNOB
+#if CONFIG_APP_CLAW_LUA_MODULE_KNOB && __has_include("lua_module_knob.h")
     { "knob", "Knob", app_lua_register_knob },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LCD
+#if CONFIG_APP_CLAW_LUA_MODULE_LCD && __has_include("lua_module_lcd.h")
     { "lcd", "LCD", app_lua_register_lcd },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LCD_TOUCH && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUPPORT) && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUB_I2C_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_LCD_TOUCH && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUPPORT) && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUB_I2C_SUPPORT) && __has_include("lua_module_lcd_touch.h")
     { "lcd_touch", "LCD Touch", app_lua_register_lcd_touch },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LEDC
+#if CONFIG_APP_CLAW_LUA_MODULE_LEDC && __has_include("lua_module_ledc.h")
     { "ledc", "LEDC", app_lua_register_ledc },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LED_STRIP
+#if CONFIG_APP_CLAW_LUA_MODULE_LED_STRIP && __has_include("lua_module_led_strip.h")
     { "led_strip", "LED Strip", app_lua_register_led_strip },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LVGL
+#if CONFIG_APP_CLAW_LUA_MODULE_LVGL && __has_include("lua_module_lvgl.h")
     { "lvgl", "LVGL", app_lua_register_lvgl },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_MAGNETOMETER
+#if CONFIG_APP_CLAW_LUA_MODULE_MAGNETOMETER && __has_include("lua_module_magnetometer.h")
     { "magnetometer", "Magnetometer", app_lua_register_magnetometer },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_SCI
+#if CONFIG_APP_CLAW_LUA_MODULE_SCI && __has_include("lua_module_sci.h")
     { "sci", "DFRobot SCI", app_lua_register_sci },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_STORAGE
+#if CONFIG_APP_CLAW_LUA_MODULE_STORAGE && __has_include("lua_module_storage.h")
     { "storage", "Storage", app_lua_register_storage },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_SYSTEM
+#if CONFIG_APP_CLAW_LUA_MODULE_SYSTEM && __has_include("lua_module_system.h")
     { "system", "System", app_lua_register_system },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_VISION && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_VISION && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT) && __has_include("lua_module_vision.h")
     { "vision", "Vision", app_lua_register_vision },
 #endif
 };
 
 static const app_lua_module_info_t s_lua_module_infos[] = {
     /* --- lua_driver (hardware peripheral drivers) --- */
-#if CONFIG_APP_CLAW_LUA_DRIVER_ADC
+#if CONFIG_APP_CLAW_LUA_DRIVER_ADC && __has_include("lua_driver_adc.h")
     { "adc", "ADC" },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_GPIO
+#if CONFIG_APP_CLAW_LUA_DRIVER_GPIO && __has_include("lua_driver_gpio.h")
     { "gpio", "GPIO" },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_I2C
+#if CONFIG_APP_CLAW_LUA_DRIVER_I2C && __has_include("lua_driver_i2c.h")
     { "i2c", "I2C" },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_MCPWM
+#if CONFIG_APP_CLAW_LUA_DRIVER_MCPWM && __has_include("lua_driver_mcpwm.h")
     { "mcpwm", "MCPWM" },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_PCNT
+#if CONFIG_APP_CLAW_LUA_DRIVER_PCNT && __has_include("lua_driver_pcnt.h")
     { "pcnt", "PCNT" },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_RMT
+#if CONFIG_APP_CLAW_LUA_DRIVER_RMT && __has_include("lua_driver_rmt.h")
     { "rmt", "RMT" },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_TOUCH
+#if CONFIG_APP_CLAW_LUA_DRIVER_TOUCH && __has_include("lua_driver_touch.h")
     { "touch", "Touch" },
 #endif
-#if CONFIG_APP_CLAW_LUA_DRIVER_UART
+#if CONFIG_APP_CLAW_LUA_DRIVER_UART && __has_include("lua_driver_uart.h")
     { "uart", "UART" },
 #endif
     /* --- lua_module (higher-level modules) --- */
-#if CONFIG_APP_CLAW_LUA_MODULE_AUDIO && defined(CONFIG_ESP_BOARD_DEV_AUDIO_CODEC_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_AUDIO && defined(CONFIG_ESP_BOARD_DEV_AUDIO_CODEC_SUPPORT) && __has_include("lua_module_audio.h")
     { "audio", "Audio" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_BOARD_MANAGER
+#if CONFIG_APP_CLAW_LUA_MODULE_BOARD_MANAGER && __has_include("lua_module_board_manager.h")
     { "board_manager", "Board Manager" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_BUTTON
+#if CONFIG_APP_CLAW_LUA_MODULE_BUTTON && __has_include("lua_module_button.h")
     { "button", "Button" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_BLE
+#if CONFIG_APP_CLAW_LUA_MODULE_BLE && __has_include("lua_module_ble.h")
     { "ble", "BLE" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_BLE_HID
+#if CONFIG_APP_CLAW_LUA_MODULE_BLE_HID && __has_include("lua_module_ble_hid.h")
     { "ble_hid", "BLE HID" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_CAMERA && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_CAMERA && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT) && __has_include("lua_module_camera.h")
     { "camera", "Camera" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_CAPABILITY
+#if CONFIG_APP_CLAW_LUA_MODULE_CAPABILITY && __has_include("lua_module_capability.h")
     { "capability", "Capability" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_DELAY
+#if CONFIG_APP_CLAW_LUA_MODULE_DELAY && __has_include("lua_module_delay.h")
     { "delay", "Delay" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_DISPLAY
+#if CONFIG_APP_CLAW_LUA_MODULE_DISPLAY && __has_include("lua_module_display.h")
     { "display", "Display" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_ENVIRONMENTAL_SENSOR
+#if CONFIG_APP_CLAW_LUA_MODULE_ENVIRONMENTAL_SENSOR && __has_include("lua_module_environmental_sensor.h")
     { "environmental_sensor", "Environmental Sensor" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_EVENT_PUBLISHER
+#if CONFIG_APP_CLAW_LUA_MODULE_EVENT_PUBLISHER && __has_include("lua_module_event_publisher.h")
     { "event_publisher", "Event Publisher" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_HTTP_SERVER
+#if CONFIG_APP_CLAW_LUA_MODULE_HTTP_SERVER && __has_include("lua_module_http_server.h")
     { "http_server", "HTTP Server" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_JSON
+#if CONFIG_APP_CLAW_LUA_MODULE_JSON && __has_include("lua_module_json.h")
     { "json", "JSON" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_IMAGE
+#if CONFIG_APP_CLAW_LUA_MODULE_IMAGE && __has_include("lua_image.h")
     { "image", "Image" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_THREAD
+#if CONFIG_APP_CLAW_LUA_MODULE_THREAD && __has_include("lua_module_thread.h")
     { "thread", "Thread" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_IMU
+#if CONFIG_APP_CLAW_LUA_MODULE_IMU && __has_include("lua_module_imu.h")
     { "imu", "IMU" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_IR
+#if CONFIG_APP_CLAW_LUA_MODULE_IR && __has_include("lua_module_ir.h")
     { "ir", "IR" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_KNOB
+#if CONFIG_APP_CLAW_LUA_MODULE_KNOB && __has_include("lua_module_knob.h")
     { "knob", "Knob" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LCD
+#if CONFIG_APP_CLAW_LUA_MODULE_LCD && __has_include("lua_module_lcd.h")
     { "lcd", "LCD" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LCD_TOUCH && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUPPORT) && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUB_I2C_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_LCD_TOUCH && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUPPORT) && defined(CONFIG_ESP_BOARD_DEV_LCD_TOUCH_SUB_I2C_SUPPORT) && __has_include("lua_module_lcd_touch.h")
     { "lcd_touch", "LCD Touch" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LEDC
+#if CONFIG_APP_CLAW_LUA_MODULE_LEDC && __has_include("lua_module_ledc.h")
     { "ledc", "LEDC" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LED_STRIP
+#if CONFIG_APP_CLAW_LUA_MODULE_LED_STRIP && __has_include("lua_module_led_strip.h")
     { "led_strip", "LED Strip" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_LVGL
+#if CONFIG_APP_CLAW_LUA_MODULE_LVGL && __has_include("lua_module_lvgl.h")
     { "lvgl", "LVGL" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_MAGNETOMETER
+#if CONFIG_APP_CLAW_LUA_MODULE_MAGNETOMETER && __has_include("lua_module_magnetometer.h")
     { "magnetometer", "Magnetometer" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_SCI
+#if CONFIG_APP_CLAW_LUA_MODULE_SCI && __has_include("lua_module_sci.h")
     { "sci", "DFRobot SCI" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_STORAGE
+#if CONFIG_APP_CLAW_LUA_MODULE_STORAGE && __has_include("lua_module_storage.h")
     { "storage", "Storage" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_SYSTEM
+#if CONFIG_APP_CLAW_LUA_MODULE_SYSTEM && __has_include("lua_module_system.h")
     { "system", "System" },
 #endif
-#if CONFIG_APP_CLAW_LUA_MODULE_VISION && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT)
+#if CONFIG_APP_CLAW_LUA_MODULE_VISION && defined(CONFIG_ESP_BOARD_DEV_CAMERA_SUPPORT) && __has_include("lua_module_vision.h")
     { "vision", "Vision" },
 #endif
 };

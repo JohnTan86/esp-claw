@@ -17,35 +17,35 @@
 #include "linenoise/linenoise.h"
 #include "esp_idf_version.h"
 
-#if CONFIG_APP_CLAW_CAP_IM_QQ
+#if CONFIG_APP_CLAW_CAP_IM_QQ && __has_include("cap_im_qq.h") && __has_include("cmd_cap_im_qq.h")
 #include "cap_im_qq.h"
 #include "cmd_cap_im_qq.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_FEISHU
+#if CONFIG_APP_CLAW_CAP_IM_FEISHU && __has_include("cmd_cap_im_feishu.h")
 #include "cmd_cap_im_feishu.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_TG
+#if CONFIG_APP_CLAW_CAP_IM_TG && __has_include("cmd_cap_im_tg.h")
 #include "cmd_cap_im_tg.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_WECHAT
+#if CONFIG_APP_CLAW_CAP_IM_WECHAT && __has_include("cmd_cap_im_wechat.h")
 #include "cmd_cap_im_wechat.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_LLM_INSPECT
+#if CONFIG_APP_CLAW_CAP_LLM_INSPECT && __has_include("cmd_cap_llm_inspect.h")
 #include "cmd_cap_llm_inspect.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_LUA
+#if CONFIG_APP_CLAW_CAP_LUA && __has_include("cmd_cap_lua.h")
 #include "cmd_cap_lua.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_ROUTER_MGR
+#if CONFIG_APP_CLAW_CAP_ROUTER_MGR && __has_include("cmd_cap_router_mgr.h")
 #include "cmd_cap_router_mgr.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_SCHEDULER
+#if CONFIG_APP_CLAW_CAP_SCHEDULER && __has_include("cmd_cap_scheduler.h")
 #include "cmd_cap_scheduler.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_SKILL_MGR
+#if CONFIG_APP_CLAW_CAP_SKILL_MGR && __has_include("cmd_cap_skill.h")
 #include "cmd_cap_skill.h"
 #endif
-#if CONFIG_APP_CLAW_CAP_WEB_SEARCH
+#if CONFIG_APP_CLAW_CAP_WEB_SEARCH && __has_include("cmd_cap_web_search.h")
 #include "cmd_cap_web_search.h"
 #endif
 #include "claw_cap.h"
@@ -63,16 +63,6 @@ static const size_t CAP_OUTPUT_BUF_SIZE = 1024;
 static uint32_t s_next_request_id = 1;
 static char s_current_session_id[64] = "default";
 
-static ssize_t app_claw_cli_read_blocking(int fd, void *buffer, size_t size)
-{
-    for (;;) {
-        ssize_t ret = read(fd, buffer, size);
-        if (ret >= 0 || (errno != EAGAIN && errno != EWOULDBLOCK)) {
-            return ret;
-        }
-        vTaskDelay(1);
-    }
-}
 
 static char *join_prompt_args(int argc, char **argv)
 {
@@ -397,30 +387,25 @@ static int cmd_cap_unload(int argc, char **argv)
 
 static int cmd_cap_load(int argc, char **argv)
 {
-    esp_err_t err;
-
     if (argc != 2) {
         printf("Usage: cap_load <plugin>\n");
         return 1;
     }
 
-#if CONFIG_APP_CLAW_CAP_IM_QQ
+#if CONFIG_APP_CLAW_CAP_IM_QQ && __has_include("cap_im_qq.h")
     if (strcmp(argv[1], "qq") == 0 || strcmp(argv[1], "cap_im_qq") == 0) {
-        err = cap_im_qq_register_group();
-    } else
+        esp_err_t err = cap_im_qq_register_group();
+        if (err != ESP_OK) {
+            printf("cap_load failed: %s\n", esp_err_to_name(err));
+            return 1;
+        }
+        printf("loaded %s\n", argv[1]);
+        return 0;
+    }
 #endif
-    {
-        printf("unknown plugin: %s\n", argv[1]);
-        return 1;
-    }
 
-    if (err != ESP_OK) {
-        printf("cap_load failed: %s\n", esp_err_to_name(err));
-        return 1;
-    }
-
-    printf("loaded %s\n", argv[1]);
-    return 0;
+    printf("unknown plugin: %s\n", argv[1]);
+    return 1;
 }
 
 static int cmd_cap(int argc, char **argv)
@@ -712,34 +697,34 @@ static int cmd_auto(int argc, char **argv)
 
 static void register_cap_cli_commands(void)
 {
-#if CONFIG_APP_CLAW_CAP_IM_QQ
+#if CONFIG_APP_CLAW_CAP_IM_QQ && __has_include("cmd_cap_im_qq.h")
     register_cap_im_qq();
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_FEISHU
+#if CONFIG_APP_CLAW_CAP_IM_FEISHU && __has_include("cmd_cap_im_feishu.h")
     register_cap_im_feishu();
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_TG
+#if CONFIG_APP_CLAW_CAP_IM_TG && __has_include("cmd_cap_im_tg.h")
     register_cap_im_tg();
 #endif
-#if CONFIG_APP_CLAW_CAP_IM_WECHAT
+#if CONFIG_APP_CLAW_CAP_IM_WECHAT && __has_include("cmd_cap_im_wechat.h")
     register_cap_im_wechat();
 #endif
-#if CONFIG_APP_CLAW_CAP_LUA
+#if CONFIG_APP_CLAW_CAP_LUA && __has_include("cmd_cap_lua.h")
     register_cap_lua();
 #endif
-#if CONFIG_APP_CLAW_CAP_LLM_INSPECT
+#if CONFIG_APP_CLAW_CAP_LLM_INSPECT && __has_include("cmd_cap_llm_inspect.h")
     register_cap_llm_inspect();
 #endif
-#if CONFIG_APP_CLAW_CAP_ROUTER_MGR
+#if CONFIG_APP_CLAW_CAP_ROUTER_MGR && __has_include("cmd_cap_router_mgr.h")
     register_cap_router_mgr();
 #endif
-#if CONFIG_APP_CLAW_CAP_SCHEDULER
+#if CONFIG_APP_CLAW_CAP_SCHEDULER && __has_include("cmd_cap_scheduler.h")
     register_cap_scheduler();
 #endif
-#if CONFIG_APP_CLAW_CAP_SKILL_MGR
+#if CONFIG_APP_CLAW_CAP_SKILL_MGR && __has_include("cmd_cap_skill.h")
     register_cap_skill();
 #endif
-#if CONFIG_APP_CLAW_CAP_WEB_SEARCH
+#if CONFIG_APP_CLAW_CAP_WEB_SEARCH && __has_include("cmd_cap_web_search.h")
     register_cap_web_search();
 #endif
 }
@@ -770,7 +755,6 @@ esp_err_t app_claw_cli_start(void)
     ESP_LOGE(TAG, "No supported console backend is enabled");
     return ESP_ERR_NOT_SUPPORTED;
 #endif
-    linenoiseSetReadFunction(app_claw_cli_read_blocking);
 
     esp_console_register_help_command();
     register_cap_cli_commands();

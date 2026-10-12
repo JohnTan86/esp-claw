@@ -19,11 +19,6 @@ dependencies:
   claw_utils:
     path: ../../../components/claw_modules/claw_utils
 
-  system_ui:
-    rules:
-    - if: $CONFIG{ESP_BOARD_DEV_DISPLAY_LCD_SUPPORT} == True
-    path: ../../../components/common/system_ui
-
   http_reuse:
     path: ../../../components/common/http_reuse
 
@@ -36,7 +31,6 @@ dependencies:
   wifi_manager:
     path: ../../../components/common/wifi_manager
 
-  esp_video:
-    path: ../../../components/common/esp_video
-    matches:
-    - if: $CONFIG{ESP_BOARD_DEV_CAMERA_SUPPORT} == True
+  espressif/esp_codec_dev:
+    version: ~1.6
+    public: true
